@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import style from "./login.module.scss"
-import {Box, Button, Checkbox, Chip, Dialog, Fab, Input, Pagination} from "@mui/material";
+import style from "./dashboard.module.scss"
+import {Box, Button, ButtonGroup, Checkbox, Chip, Dialog, Fab, Input, Pagination} from "@mui/material";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faAngleDown,
     faAngleUp,
-    faCircleXmark,
+    faCircleXmark, faCodeMerge,
     faMagnifyingGlass,
     faPlus,
     faXmark
@@ -15,7 +15,7 @@ function AccountCircle(props) {
     return null;
 }
 const sample_data = ["here","ijaois","fsd","fokmvm","pooiwer","heree","he2re","hegre","he1re","hebre",]
-const Login=()=>{
+const Dashboard=()=>{
     const [currentParamsState, setCurrentParamState] = useState(["here","ijaois"])
     const [modalState1, setModalState1] = useState(false);
     return <div>
@@ -33,7 +33,7 @@ const Login=()=>{
         &nbsp;
     {/*    Icons dropdown*/}
         <div style={{display:"inline"}}>
-            <b>params: </b>
+            <b style={{color:"#8E8E8E"}}>params: </b>
             <Button variant="contained" style={{fontSize:"10px"}} size={"small"}
                     fullWidth={false} onClick={()=>setModalState1(true)}>
                 <FontAwesomeIcon icon={faPlus} fontSize={17}/>
@@ -107,7 +107,7 @@ const Login=()=>{
         </div>
         {/*This here is the filter section*/}
         <div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>
-            <b>Filters:&nbsp;</b>
+            <p style={{color:"#8E8E8E"}}>Filters:&nbsp;</p>
             <CustomFilter/>
             <CustomFilter/>
             <CustomFilter/>
@@ -124,28 +124,44 @@ const Login=()=>{
             <CustomFilter/>
         </div>
     {/*    combined view parameters: */}
-        <div style={{display:"flex", alignItems:"center", marginTop:"6.4px", flexWrap:"wrap"}}>
-            <b>combined view parameters:&nbsp;</b>
-            <Button variant="outlined" endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{
+        <div style={{display:"flex", alignItems:"center", marginTop:"9.4px", flexWrap:"wrap"}}>
+            <p style={{color:"#8E8E8E"}}>combined view parameters:&nbsp;</p>
+            <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{
                 marginRight:"13px"
             }}>
                 valid_id | valid_id_details
             </Button>
-            <Button variant="outlined" endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{
+            <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{
                 marginRight:"13px"
             }}>
                 valid_id | valid_id_details
             </Button>
             <p>+ add new parameters</p>
         </div>
-        <div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>
-            <p>select page:&nbsp;</p>
-            <Pagination count={4} variant="outlined" shape="rounded" />
+        <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
+
+            <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
+                <p style={{color:"#8E8E8E"}}>select page:&nbsp;</p>
+                <Pagination count={4} variant="outlined" shape="rounded" />
+            </div>
+            <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
+                <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>
+                <RowCountComp/>
+            </div>
+            <div style={{display:"flex", alignItems:"center",  flexWrap:"wrap"}}>
+                <p style={{color:"#8E8E8E"}}>merge direction:&nbsp;&nbsp;</p>
+                <ButtonGroup size={"small"} variant="outlined" color={"secondary"} aria-label="outlined button group">
+                    <Button>Left</Button>
+                    <Button>Full</Button>
+                    <Button>right</Button>
+                </ButtonGroup>
+            </div>
+            <p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>
+
         </div>
-        <div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>
-            <p>rows per page:&nbsp;</p>
-            <RowCountComp/>
-        </div>
+
+
+
     </div>
 }
 export const CustomFilter=()=>{
@@ -158,7 +174,7 @@ export const CustomFilter=()=>{
                 borderRadius: '3.10604px',
                 position:"relative",
                 marginBottom:"7px",
-                marginRight:"13px"
+                marginRight:"19px"
             }}>
         <p style={{margin:"0 7.2px"}}><b >place_of_origin: </b>Bengaluru</p>
         <div className={style.drop_down} style={{background:"#FAFAFA",padding:"5px",borderRadius: '3.10604px'}} onClick={()=> {
@@ -167,7 +183,7 @@ export const CustomFilter=()=>{
         }>
             <FontAwesomeIcon icon={!toggleOpen?faAngleDown:faAngleUp}/>
         </div>
-    {/*    this here is for the drop down*/}
+    {/*    this here is for the drop-down*/}
         {toggleOpen && <div style={{
             width: "100%",
             maxHeight: "200px",
@@ -247,4 +263,4 @@ export const RowCountComp=()=>{
     </div>
 }
 
-export default Login
+export default Dashboard
