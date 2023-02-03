@@ -9,9 +9,12 @@ import {CustomFilter} from "@/pages/dashboard";
 import {HexColorPicker} from "react-colorful";
 import Highcharts from "highcharts";
 import HighchartsHeatmap from 'highcharts/modules/heatmap';
+import HighchartsSankey from "highcharts/modules/sankey";
 import HighchartsReact from "highcharts-react-official";
+import sankey_test_data from "../test/sankey_test"
 if (typeof Highcharts === 'object') {
-    HighchartsHeatmap(Highcharts)
+    HighchartsHeatmap(Highcharts);
+    HighchartsSankey(Highcharts);
 }
 export const ChartCreator=()=>{
     const [selColor, setSelColor] = useState("#aabbcc");
@@ -35,7 +38,7 @@ export const ChartCreator=()=>{
         },
         xAxis: {
             min: 0,
-            max: 23,
+            max: 13,
             tickInterval: 1,
             labels: {
                 step: 1,
@@ -95,6 +98,7 @@ export const ChartCreator=()=>{
                 },
                 data: [
                     [1, 2, 100],
+                    [1, 4, 100],
                     [4, 3, 200],
                     [7, 4, 300],
                     [2, 5, 400],
@@ -159,7 +163,14 @@ export const ChartCreator=()=>{
             </div>
             <img src={HeatMapTS.src}/>
         </div>
-            <HighchartsReact highcharts={Highcharts} options={options} />
+            <div style={{width:"800px"}}>
+                <HighchartsReact highcharts={Highcharts} options={options} />
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={sankey_test_data}
+                    // constructorType="sankyChart"
+                />
+            </div>
         </div>
     </div>
 }
