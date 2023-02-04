@@ -9,7 +9,8 @@ const theme = createMuiTheme({
 export default function App({ Component, pageProps }) {
   return <ThemeProvider theme={theme}>
     <div style={{
-      display:"flex"
+      display:"flex",
+      width:"100vw",
     }}>
       <SideBar/>
       <Component {...pageProps} />

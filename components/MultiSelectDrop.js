@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Checkbox, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-const MultiSelectDrop=()=>{
-    const [selected, setSelected] = useState(["Oliver Hansen"]);
+const MultiSelectDrop=({labelled_name,options})=>{
+    const [selected, setSelected] = useState(options);
 
     const useStyles = makeStyles((theme) => ({
         formControl: {
@@ -31,18 +31,6 @@ const MultiSelectDrop=()=>{
         }
         setSelected(value);
     };
-    const options = [
-        "Oliver Hansen",
-        "Van Henry",
-        "April Tucker",
-        "Ralph Hubbard",
-        "Omar Alexander",
-        "Carlos Abbott",
-        "Miriam Wagner",
-        "Bradley Wilkerson",
-        "Virginia Andrews",
-        "Kelly Snyder"
-    ];
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -66,7 +54,7 @@ const MultiSelectDrop=()=>{
     const isAllSelected =
         options.length > 0 && selected.length === options.length;
     return <FormControl variant="filled" sx={{ m: 1, maxWidth: 300 }} size={"small"}>
-        <InputLabel id="mutiple-select-label">Multiple Select</InputLabel>
+        <InputLabel id="mutiple-select-label">{labelled_name}</InputLabel>
         <Select
             labelId="mutiple-select-label"
             multiple

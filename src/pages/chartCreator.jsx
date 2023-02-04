@@ -228,17 +228,17 @@ export const ChartCreator=()=>{
             <img src={HeatMapTS.src}/>
         </div>
             <div style={{width:"800px", marginLeft:"10px"}}>
-                {/*<HighchartsReact highcharts={Highcharts} options={options} />*/}
-                {/*<HighchartsReact*/}
-                {/*    highcharts={Highcharts}*/}
-                {/*    options={sankey_test_data}*/}
-                {/*    // constructorType="sankyChart"*/}
-                {/*/>*/}
-                {/*<HighchartsReact*/}
-                {/*    highcharts={Highcharts}*/}
-                {/*    options={pi_data}*/}
-                {/*    // constructorType="sankyChart"*/}
-                {/*/>*/}
+                <HighchartsReact highcharts={Highcharts} options={options} />
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={sankey_test_data}
+                    // constructorType="sankyChart"
+                />
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={pi_data}
+                    // constructorType="sankyChart"
+                />
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={line_chart_test}

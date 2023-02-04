@@ -16,10 +16,12 @@ import {
 } from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import FingerPrintData from "../assets/finger_print_test.png"
 import {
+    faAngleDoubleLeft, faAngleDoubleRight,
     faAngleDown,
-    faAngleUp,
-    faCircleXmark, faCodeMerge,
+    faAngleUp, faChevronRight,
+    faCircleXmark, faCodeMerge, faDownload,
     faMagnifyingGlass,
     faPlus,
     faXmark
@@ -53,6 +55,32 @@ const Dashboard=()=>{
             }
         }
     }));
+    const demi_data = [
+        {
+            name:"State",
+            value:["Anantapur","Chittoor","East Godavari","Guntur","Krishna","Kurnool","Prakasam","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari","YSR Kadapa"]
+        },
+        {
+            name:"District_Name",
+            value:["Anantapur","Chittoor","East Godavari","Guntur","Krishna","Kurnool","Prakasam","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari","YSR Kadapa"]
+        },
+        {
+            name:"PS_Name",
+            value:["Amaravati","Anantapur","Chilakaluripet","Chittoor","Gooty","Guntakal","Guntur","Kadapa","Kakinada","Kurnool","Machilipatnam","Nandyal","Narasaraopet","Nellore","Ongole","Proddatur","Srikakulam","Tadepalligudem","Tadipatri","Tenali","Tirupati","Vijayawada","Visakhapatnam","Vizianagaram","Yemmiganur"],
+        },
+        {
+            name:"Gender",
+            value:["M","F"],
+        },
+        {
+            name:"AgeWhileOpening",
+            value:["18-25","26-35","36-45","46-55","56-65","66-75","76-85","86-95","96-105","106-115","116-125","126-135","136-145","146-155","156-165","166-175","176-185","186-195","196-205","206-215","216-225","226-235","236-245","246-255","256-265","266-275","276-285","286-295","296-305","306-315","316-325","326-335","336-345","346-355","356-365","366-375","376-385","386-395","396-405","406-415","416-425","426-435","436-445","446-455","456-465","466-475","476-485","486-495","496-505","506-515","516-525","526-535","536-545","546-555","556-565","566-575","576-585","586-595","596-605","606-615","616-625","626-635","636-645","646-655","656-665","666-675","676-685","686-695","696-705","706-715","716-725","726-735","736-745","746-755","756-765","766-775","776-785","786-795","796-805","806-815","816-825","826-835","836-845","846-855","856-865","866-875","876-885","886-895","896-905","906-915","916-925","926-935","936-945","946-955","956-965","966-975","976-985","986-995","996-1005","1006-1015","1016-1025","1026-1035","1036-1045","1046-1055","1056-1065","1066-1075","1076-1085","1086-1095","1096-1105","1106-1115","1116-1125","1126-1135","1136-1145","1146-1155","1156-1165","1166-1175"],
+        },
+        {
+            name:"Age",
+            value:["18-25","26-35","36-45","46-55","56-65","66-75","76-85","86-95","96-105","106-115","116-125","126-135","136-145","146-155","156-165","166-175","176-185","186-195","196-205","206-215","216-225","226-235","236-245","246-255","256-265","266-275","276-285","286-295","296-305","306-315","316-325","326-335","336-345","346-355","356-365","366-375","376-385","386-395","396-405","406-415","416-425","426-435","436-445","446-455","456-465","466-475","476-485","486-495","496-505","506-515","516-525","526-535","536-545","546-555","556-565","566-575","576-585","586-595","596-605","606-615","616-625","626-635","636-645","646-655","656-665","666-675","676-685","686-695","696-705","706-715","716-725","726-735","736-745","746-755","756-765","766-775","776-785","786-795","796-805","806-815","816-825","826-835","836-845","846-855","856-865","866-875","876-885","886-895","896-905","906-915","916-925","926-935","936-945","946-955","956-965","966-975","976-985","986-995","996-1005","1006-1015","1016-1025","1026-1035","1036-1045","1046-1055","1056-1065","1066-1075","1076-1085","1086-1095","1096-1105","1106-1115","1116-1125","1126-1135","1136-1145","1146-1155","1156-1165","1166-1175"]
+        }
+    ]
     const classes = useStyles();
     const handleChange = (event) => {
         const value = event.target.value;
@@ -84,22 +112,13 @@ const Dashboard=()=>{
     ];
 
     const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
         { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
         { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
         { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
         { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 10, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 12, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 13, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 14, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 15, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 16, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-        { id: 17, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    ];
+    const rows2 = [
+        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
     ];
 
     return <div>
@@ -117,25 +136,25 @@ const Dashboard=()=>{
         &nbsp;
     {/*    Icons dropdown*/}
         <div style={{display:"inline"}}>
-            <b style={{color:"#8E8E8E"}}>params: </b>
-            <Button variant="contained" style={{fontSize:"10px"}} size={"small"}
-                    fullWidth={false} onClick={()=>setModalState1(true)}>
-                <FontAwesomeIcon icon={faPlus} fontSize={17}/>
-            </Button>
-            {
-                currentParamsState.map((cpvls)=>{
-                    return <Chip style={{
-                        margin:"0 5px"
-                    }} label={cpvls} variant="outlined" onDelete={async()=>{
-                        console.log("jasiodjoias")
-                        setCurrentParamState(state=>{
-                            let ret_val=state.filter((chips)=>chips!==cpvls);
-                            console.log(ret_val)
-                            return state
-                        })
-                    }}></Chip>
-                })
-            }
+            {/*<b style={{color:"#8E8E8E"}}>params: </b>*/}
+            {/*<Button variant="contained" style={{fontSize:"10px"}} size={"small"}*/}
+            {/*        fullWidth={false} onClick={()=>setModalState1(true)}>*/}
+            {/*    <FontAwesomeIcon icon={faPlus} fontSize={17}/>*/}
+            {/*</Button>*/}
+            {/*{*/}
+            {/*    currentParamsState.map((cpvls)=>{*/}
+            {/*        return <Chip style={{*/}
+            {/*            margin:"0 5px"*/}
+            {/*        }} label={cpvls} variant="outlined" onDelete={async()=>{*/}
+            {/*            console.log("jasiodjoias")*/}
+            {/*            setCurrentParamState(state=>{*/}
+            {/*                let ret_val=state.filter((chips)=>chips!==cpvls);*/}
+            {/*                console.log(ret_val)*/}
+            {/*                return state*/}
+            {/*            })*/}
+            {/*        }}></Chip>*/}
+            {/*    })*/}
+            {/*}*/}
             <Dialog open={modalState1} >
                 <div style={{
                     padding:"15px",
@@ -192,18 +211,11 @@ const Dashboard=()=>{
         {/*This here is the filter section*/}
         <div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>
             <p style={{color:"#8E8E8E"}}>Filters:&nbsp;</p>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
-            <MultiSelectDrop/>
+            {
+                demi_data.map((vls,index)=>{
+                    return <MultiSelectDrop labelled_name={vls.name} options={vls.value}/>
+                })
+            }
         </div>
     {/*    combined view parameters: */}
     {/*    <div style={{display:"flex", alignItems:"center", marginTop:"9.4px", flexWrap:"wrap"}}>*/}
@@ -220,6 +232,79 @@ const Dashboard=()=>{
     {/*        </Button>*/}
     {/*        <p>+ add new parameters</p>*/}
     {/*    </div>*/}
+        <h2 style={{
+            margin:"10px"
+        }}>Finger Print Data Analysis</h2>
+        <div style={{
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"space-between",
+            width:"1300px"
+        }}>
+            <div>
+                <img src={FingerPrintData.src} style={{
+                    width:"180px"
+                }}/>
+            </div>
+            <FontAwesomeIcon icon={faAngleDoubleRight}/>
+            <div style={{
+                display:"flex",
+                flexDirection:"column",
+                alignItems:"center",
+            }}>
+                <p
+                    style={{
+                        fontSize:"45px",
+                        fontWeight:"900",
+                        color:"green"
+                    }}
+                >90%</p>
+                <p
+                style={{
+                    fontSize:"35px",
+                    color:"green"
+                }}
+                >Match</p>
+                <div style={{
+                    display:"flex",
+                    gap:"10px",
+                    alignItems:"center",
+                    marginTop:"10px"
+                }}>
+                    <p style={{color:"#8E8E8E"}}>Download:</p>
+                    <div
+                        style={{
+                            width:"30px",
+                            height:"30px",
+                            background:"lightgrey",
+                            borderRadius:"7px",
+                            justifyContent:"center",
+                            display:"flex",
+                            alignItems:"center",
+                            color:"#ffffff"
+                        }}
+                    ><FontAwesomeIcon icon={faDownload}/></div>
+                </div>
+            </div>
+            <FontAwesomeIcon icon={faAngleDoubleRight}/>
+            <div>
+                <div style={{ height: "350px",width: "600px" }}>
+                    <DataGrid
+                        rows={rows2}
+                        columns={columns}
+                        pageSize={15}
+                        rowsPerPageOptions={[10]}
+                        page={0}
+                        style={{
+                            width:"400px"}
+                        }
+                    />
+                </div>
+            </div>
+        </div>
+        <h2 style={{
+            margin:"10px"
+        }}>Karnataka State Data</h2>
         <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
 
             <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
@@ -230,13 +315,32 @@ const Dashboard=()=>{
                 <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>
                 <RowCountComp/>
             </div>
+            <div style={{
+                display:"flex",
+                alignItems:"center",
+                gap:"4px"
+            }}>
+                <p style={{color:"#8E8E8E"}}>PDF:</p>
+                <div
+                style={{
+                    width:"30px",
+                    height:"30px",
+                    background:"lightgrey",
+                    borderRadius:"7px",
+                    justifyContent:"center",
+                    display:"flex",
+                    alignItems:"center",
+                    color:"#ffffff"
+                }}
+                ><FontAwesomeIcon icon={faDownload}/></div>
+            </div>
             <div style={{display:"flex", alignItems:"center",  flexWrap:"wrap"}}>
-                <p style={{color:"#8E8E8E"}}>merge direction:&nbsp;&nbsp;</p>
-                <ButtonGroup size={"small"} variant="outlined" color={"secondary"} aria-label="outlined button group">
-                    <Button>Left</Button>
-                    <Button>Full</Button>
-                    <Button>right</Button>
-                </ButtonGroup>
+                {/*<p style={{color:"#8E8E8E"}}>merge direction:&nbsp;&nbsp;</p>*/}
+                {/*<ButtonGroup size={"small"} variant="outlined" color={"secondary"} aria-label="outlined button group">*/}
+                {/*    <Button>Left</Button>*/}
+                {/*    <Button>Full</Button>*/}
+                {/*    <Button>right</Button>*/}
+                {/*</ButtonGroup>*/}
             </div>
             <p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>
 
@@ -246,7 +350,7 @@ const Dashboard=()=>{
         &nbsp;
         &nbsp;
         {/*added MUI library*/}
-        <div style={{ height: "630px", maxWidth: '100%' }}>
+        <div style={{ height: "350px",width: "600px" }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -254,6 +358,69 @@ const Dashboard=()=>{
                 rowsPerPageOptions={[10]}
                 page={0}
                 checkboxSelection
+                style={{
+            width:"1100px"}
+                }
+            />
+        </div>
+        <h2 style={{
+            margin:"10px"
+        }}>ICJS DataBase</h2>
+        <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
+            <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
+                <p style={{color:"#8E8E8E"}}>select page:&nbsp;</p>
+                <Pagination count={4} variant="outlined" shape="rounded" />
+            </div>
+            <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
+                <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>
+                <RowCountComp/>
+            </div>
+            <div style={{
+                display:"flex",
+                alignItems:"center",
+                gap:"4px"
+            }}>
+                <p style={{color:"#8E8E8E"}}>PDF:</p>
+                <div
+                    style={{
+                        width:"30px",
+                        height:"30px",
+                        background:"lightgrey",
+                        borderRadius:"7px",
+                        justifyContent:"center",
+                        display:"flex",
+                        alignItems:"center",
+                        color:"#ffffff"
+                    }}
+                ><FontAwesomeIcon icon={faDownload}/></div>
+            </div>
+            <div style={{display:"flex", alignItems:"center",  flexWrap:"wrap"}}>
+                {/*<p style={{color:"#8E8E8E"}}>merge direction:&nbsp;&nbsp;</p>*/}
+                {/*<ButtonGroup size={"small"} variant="outlined" color={"secondary"} aria-label="outlined button group">*/}
+                {/*    <Button>Left</Button>*/}
+                {/*    <Button>Full</Button>*/}
+                {/*    <Button>right</Button>*/}
+                {/*</ButtonGroup>*/}
+            </div>
+            <p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>
+
+        </div>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        {/*added MUI library*/}
+        <div style={{ height: "350px", maxWidth: '100%' }}>
+            <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={15}
+                rowsPerPageOptions={[10]}
+                page={0}
+                checkboxSelection
+                style={{
+            width:"1100px"}
+                }
             />
         </div>
 
