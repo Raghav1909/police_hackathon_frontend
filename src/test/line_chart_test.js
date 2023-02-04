@@ -1,6 +1,6 @@
 module.exports = {
     title: {
-        text: '',
+        text: ' ',
         align: 'left'
     },
 
