@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import {createMuiTheme, ThemeProvider} from "@mui/material";
+import SideBar from "../../components/SideBar";
 const theme = createMuiTheme({
   typography: {
     fontFamily: ['Urbanist'].join(','),
@@ -7,6 +8,11 @@ const theme = createMuiTheme({
 });
 export default function App({ Component, pageProps }) {
   return <ThemeProvider theme={theme}>
-    <Component {...pageProps} />
+    <div style={{
+      display:"flex"
+    }}>
+      <SideBar/>
+      <Component {...pageProps} />
+    </div>
   </ThemeProvider>
 }

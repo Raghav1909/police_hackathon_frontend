@@ -1,6 +1,20 @@
 import React, {useState} from "react";
 import style from "./dashboard.module.scss"
-import {Box, Button, ButtonGroup, Checkbox, Chip, Dialog, Fab, Input, Pagination} from "@mui/material";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Checkbox,
+    Chip,
+    Dialog,
+    Fab,
+    Input,
+    InputLabel,
+    MenuItem,
+    FormControl,
+    Pagination
+} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faAngleDown,
@@ -10,7 +24,10 @@ import {
     faPlus,
     faXmark
 } from "@fortawesome/free-solid-svg-icons";
-import {DataGrid} from "@mui/x-data-grid"
+import {DataGrid} from "@mui/x-data-grid";
+import {Select} from "@mui/material";
+import {ListItemIcon, ListItemText} from "@mui/material";
+import MultiSelectDrop from "../../components/MultiSelectDrop";
 function AccountCircle(props) {
     return null;
 }
@@ -18,7 +35,33 @@ const sample_data = ["here","ijaois","fsd","fokmvm","pooiwer","heree","he2re","h
 const Dashboard=()=>{
     const [currentParamsState, setCurrentParamState] = useState(["here","ijaois"])
     const [modalState1, setModalState1] = useState(false);
-
+    const useStyles = makeStyles((theme) => ({
+        formControl: {
+            margin: theme.spacing(1),
+            width: 300
+        },
+        indeterminateColor: {
+            color: "#f50057"
+        },
+        selectAllText: {
+            fontWeight: 500
+        },
+        selectedAll: {
+            backgroundColor: "rgba(0, 0, 0, 0.08)",
+            "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.08)"
+            }
+        }
+    }));
+    const classes = useStyles();
+    const handleChange = (event) => {
+        const value = event.target.value;
+        if (value[value.length - 1] === "all") {
+            setSelected(selected.length === options.length ? [] : options);
+            return;
+        }
+        setSelected(value);
+    };
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'firstName', headerName: 'First name', width: 130 },
@@ -149,36 +192,34 @@ const Dashboard=()=>{
         {/*This here is the filter section*/}
         <div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>
             <p style={{color:"#8E8E8E"}}>Filters:&nbsp;</p>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
-            <CustomFilter/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
+            <MultiSelectDrop/>
         </div>
     {/*    combined view parameters: */}
-        <div style={{display:"flex", alignItems:"center", marginTop:"9.4px", flexWrap:"wrap"}}>
-            <p style={{color:"#8E8E8E"}}>combined view parameters:&nbsp;</p>
-            <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{
-                marginRight:"13px"
-            }}>
-                valid_id | valid_id_details
-            </Button>
-            <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{
-                marginRight:"13px"
-            }}>
-                valid_id | valid_id_details
-            </Button>
-            <p>+ add new parameters</p>
-        </div>
+    {/*    <div style={{display:"flex", alignItems:"center", marginTop:"9.4px", flexWrap:"wrap"}}>*/}
+    {/*        <p style={{color:"#8E8E8E"}}>combined view parameters:&nbsp;</p>*/}
+    {/*        <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{*/}
+    {/*            marginRight:"13px"*/}
+    {/*        }}>*/}
+    {/*            valid_id | valid_id_details*/}
+    {/*        </Button>*/}
+    {/*        <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{*/}
+    {/*            marginRight:"13px"*/}
+    {/*        }}>*/}
+    {/*            valid_id | valid_id_details*/}
+    {/*        </Button>*/}
+    {/*        <p>+ add new parameters</p>*/}
+    {/*    </div>*/}
         <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
 
             <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>

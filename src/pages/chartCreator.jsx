@@ -3,7 +3,7 @@ import PiChart from "../assets/Chart.png"
 import style from "./chartCreator.module.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faExternalLink, faLink} from "@fortawesome/free-solid-svg-icons";
-import {Button, TextField} from "@mui/material";
+import {Button, makeStyles, TextField} from "@mui/material";
 import HeatMapTS from "../assets/HeatMapTS.svg"
 import {CustomFilter} from "@/pages/dashboard";
 import {HexColorPicker} from "react-colorful";
@@ -12,6 +12,7 @@ import HighchartsHeatmap from 'highcharts/modules/heatmap';
 import HighchartsSankey from "highcharts/modules/sankey";
 import HighchartsReact from "highcharts-react-official";
 import sankey_test_data from "../test/sankey_test"
+import line_chart_test from "../test/line_chart_test"
 if (typeof Highcharts === 'object') {
     HighchartsHeatmap(Highcharts);
     HighchartsSankey(Highcharts);
@@ -27,7 +28,70 @@ export const ChartCreator=()=>{
         'Friday',
         'Saturday',
     ];
-
+    const pi_data = {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '',
+            align: 'left'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Chrome',
+                y: 70.67,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Edge',
+                y: 14.77
+            },  {
+                name: 'Firefox',
+                y: 4.86
+            }, {
+                name: 'Safari',
+                y: 2.63
+            }, {
+                name: 'Internet Explorer',
+                y: 1.53
+            },  {
+                name: 'Opera',
+                y: 1.40
+            }, {
+                name: 'Sogou Explorer',
+                y: 0.84
+            }, {
+                name: 'QQ',
+                y: 0.51
+            }, {
+                name: 'Other',
+                y: 2.6
+            }]
+        }]
+    }
     const options = {
         chart: {
             type: 'heatmap',
@@ -163,15 +227,26 @@ export const ChartCreator=()=>{
             </div>
             <img src={HeatMapTS.src}/>
         </div>
-            <div style={{width:"800px"}}>
-                <HighchartsReact highcharts={Highcharts} options={options} />
+            <div style={{width:"800px", marginLeft:"10px"}}>
+                {/*<HighchartsReact highcharts={Highcharts} options={options} />*/}
+                {/*<HighchartsReact*/}
+                {/*    highcharts={Highcharts}*/}
+                {/*    options={sankey_test_data}*/}
+                {/*    // constructorType="sankyChart"*/}
+                {/*/>*/}
+                {/*<HighchartsReact*/}
+                {/*    highcharts={Highcharts}*/}
+                {/*    options={pi_data}*/}
+                {/*    // constructorType="sankyChart"*/}
+                {/*/>*/}
                 <HighchartsReact
                     highcharts={Highcharts}
-                    options={sankey_test_data}
+                    options={line_chart_test}
                     // constructorType="sankyChart"
                 />
             </div>
         </div>
+
     </div>
 }
 export default ChartCreator
