@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/context/AuthContext';
 import '@/styles/globals.css'
 import {createMuiTheme, ThemeProvider} from "@mui/material";
 import SideBar from "../../components/SideBar";
@@ -7,13 +8,18 @@ const theme = createMuiTheme({
   }
 });
 export default function App({ Component, pageProps }) {
-  return <ThemeProvider theme={theme}>
-    <div style={{
+    return (
+  <AuthProvider>
+    <ThemeProvider theme={theme}>
+    {/* <div style={{
       display:"flex",
       width:"100vw",
     }}>
       <SideBar/>
       <Component {...pageProps} />
-    </div>
-  </ThemeProvider>
+    </div> */}
+      <Component {...pageProps} />
+    </ThemeProvider>
+  </AuthProvider>
+  )
 }
