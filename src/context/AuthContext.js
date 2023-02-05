@@ -10,7 +10,7 @@ export default AuthContext
 export const AuthProvider = ({children}) => {
   let [authTokens, setAuthTokens] = useState(null)
   let [user, setUser] = useState(null)
-  
+
   useEffect(() => {
       let token = localStorage.getItem('authTokens')
       if(token){
@@ -30,8 +30,8 @@ export const AuthProvider = ({children}) => {
       let formData = new FormData()
       formData.append('username', email)
       formData.append('password', password)
-      let response = await fetch('http://localhost:8000/auth',formData,{
-        method: 'POST',  
+      let response = await fetch('http://13.71.90.52:8000/auth',formData,{
+        method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           }
@@ -48,9 +48,9 @@ export const AuthProvider = ({children}) => {
       }else{
           console.log('Error')
       }
-      
+
   }
-  
+
   let logout = () => {
       setAuthTokens(null)
       setUser(null)

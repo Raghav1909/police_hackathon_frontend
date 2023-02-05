@@ -11,13 +11,13 @@ export default function App({ Component, pageProps }) {
     return (
   <AuthProvider>
     <ThemeProvider theme={theme}>
-    {/* <div style={{
-      display:"flex",
-      width:"100vw",
-    }}>
-      <SideBar/>
-      <Component {...pageProps} />
-    </div> */}
+    {/*<div style={{*/}
+    {/*  display:"flex",*/}
+    {/*  width:"100vw",*/}
+    {/*}}>*/}
+    {/*  <SideBar/>*/}
+    {/*  <Component {...pageProps} />*/}
+    {/*</div>*/}
       <Component {...pageProps} />
     </ThemeProvider>
   </AuthProvider>

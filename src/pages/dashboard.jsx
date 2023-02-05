@@ -44,7 +44,7 @@ const Dashboard=()=>{
         if (search_term!==undefined) {
             searchTerm = search_term
         }
-        let data = await fetch(`http://localhost:8000/search/${searchTerm}`,{
+        let data = await fetch(`http://13.71.90.52:8000/search/${searchTerm}`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -114,27 +114,72 @@ const Dashboard=()=>{
     const rows2 = [
         { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
     ];
-
+    const [file, setFile] = useState();
     return <div>
         {/*search dropdown*/}
-        <form style={{display:"inline"}}
-        onSubmit={(e)=>{
-            e.preventDefault();
-            // setSearchTerm(e.currentTarget.searchbar.value)
-            searchGo(e.currentTarget.searchbar.value);
-        }}
-        >
-            <b>Search:</b>&nbsp;&nbsp;
-               <Input
-                 id="standard-adornment-amount"
-                 placeholder={"Names, id, etc"}
-                 name={"searchbar"}
-                 startAdornment={<FontAwesomeIcon icon={faMagnifyingGlass} style={{marginRight:"10px"}}/>}
-            />
-            <button
-            type={"submit"}
-            >Search</button>
-        </form>
+        <div style={{
+            display:"flex",
+            gap:"30px",
+            flexDirection:"column",
+            alignItems:"center"
+        }}>
+            <form style={{display:"inline",marginTop:"10px"}}
+                  onSubmit={(e)=>{
+                      e.preventDefault();
+                      // setSearchTerm(e.currentTarget.searchbar.value)
+                      searchGo(e.currentTarget.searchbar.value);
+                  }}
+            >
+                <b>Search:</b>&nbsp;&nbsp;
+                <Input
+                    id="standard-adornment-amount"
+                    placeholder={"Names, id, etc"}
+                    name={"searchbar"}
+                    startAdornment={<FontAwesomeIcon icon={faMagnifyingGlass} style={{marginRight:"10px"}}/>}
+                />
+                <button
+                    type={"submit"}
+                >Search</button>
+            </form>
+            <form style={{display:"flex"}} onSubmit={async (e)=>{
+                e.preventDefault();
+                let data = new FormData();
+                data.append("assignment_file",file);
+                let dataTest = await fetch("http://13.71.90.52:8000/image-recognize",{
+                    method:"POST",
+                    body: data
+                })
+                let json = await dataTest.json();
+                setRows(json.responses)
+            }}>
+                <p>Image Recognition: &nbsp;</p>
+                <input type={"file"} name={"upload_img"} onChange={(e)=>{
+                    if (e.target.files) {
+                        setFile(e.target.files[0]);
+                    }
+                }}/>
+                <button type={"submit"}>Search for image</button>
+            </form>
+            <form style={{display:"flex"}} onSubmit={async (e)=>{
+                e.preventDefault();
+                let data = new FormData();
+                data.append("assignment_file",file);
+                let dataTest = await fetch("http://13.71.90.52:8000/finger-recognize",{
+                    method:"POST",
+                    body: data
+                })
+                let json = await dataTest.json()
+                setRows(json.responses)
+            }}>
+                <p>Finger print Recognition: </p>
+                <input type={"file"} name={"upload_img"} onChange={(e)=>{
+                    if (e.target.files) {
+                        setFile(e.target.files[0]);
+                    }
+                }}/>
+                <button type={"submit"}>Search for fingerprint</button>
+            </form>
+        </div>
         &nbsp;
         &nbsp;
         &nbsp;
@@ -306,18 +351,15 @@ const Dashboard=()=>{
     {/*            </div>*/}
     {/*        </div>*/}
     {/*    </div>*/}
-        <h2 style={{
-            margin:"10px"
-        }}>ICJS DataBase</h2>
         <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
             <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
                 <p style={{color:"#8E8E8E"}}>select page:&nbsp;</p>
-                <Pagination count={4} variant="outlined" shape="rounded" />
+                <Pagination count={Math.round(rows.length / 15)} variant="outlined" shape="rounded" />
             </div>
-            <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
-                <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>
-                <RowCountComp/>
-            </div>
+            {/*<div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>*/}
+            {/*    <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>*/}
+            {/*    <RowCountComp/>*/}
+            {/*</div>*/}
             <div style={{
                 display:"flex",
                 alignItems:"center",
@@ -345,7 +387,7 @@ const Dashboard=()=>{
                 {/*    <Button>right</Button>*/}
                 {/*</ButtonGroup>*/}
             </div>
-            <p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>
+            {/*<p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>*/}
 
         </div>
         &nbsp;
@@ -353,11 +395,11 @@ const Dashboard=()=>{
         &nbsp;
         &nbsp;
         {/*added MUI library*/}
-        <div style={{ height: "85vh", width: '90vw' }}>
+        <div style={{ height: "70vh", width: '90vw' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={50}
+                pageSize={15}
                 rowsPerPageOptions={[10]}
                 page={0}
                 // checkboxSelection
