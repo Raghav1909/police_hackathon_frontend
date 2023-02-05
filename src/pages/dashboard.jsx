@@ -30,6 +30,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import {Select} from "@mui/material";
 import {ListItemIcon, ListItemText} from "@mui/material";
 import MultiSelectDrop from "../../components/MultiSelectDrop";
+import SideBar from "../../components/SideBar";
 function AccountCircle(props) {
     return null;
 }
@@ -115,300 +116,306 @@ const Dashboard=()=>{
         { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
     ];
     const [file, setFile] = useState();
-    return <div>
+    return <div style={{display:'flex'}}>
         {/*search dropdown*/}
-        <div style={{
-            display:"flex",
-            gap:"30px",
-            flexDirection:"column",
-            alignItems:"center"
-        }}>
-            <form style={{display:"inline",marginTop:"10px"}}
-                  onSubmit={(e)=>{
-                      e.preventDefault();
-                      // setSearchTerm(e.currentTarget.searchbar.value)
-                      searchGo(e.currentTarget.searchbar.value);
-                  }}
-            >
-                <b>Search:</b>&nbsp;&nbsp;
-                <Input
-                    id="standard-adornment-amount"
-                    placeholder={"Names, id, etc"}
-                    name={"searchbar"}
-                    startAdornment={<FontAwesomeIcon icon={faMagnifyingGlass} style={{marginRight:"10px"}}/>}
-                />
-                <button
-                    type={"submit"}
-                >Search</button>
-            </form>
-            <form style={{display:"flex"}} onSubmit={async (e)=>{
-                e.preventDefault();
-                let data = new FormData();
-                data.append("assignment_file",file);
-                let dataTest = await fetch("http://13.71.90.52:8000/image-recognize",{
-                    method:"POST",
-                    body: data
-                })
-                let json = await dataTest.json();
-                setRows(json.responses)
-            }}>
-                <p>Image Recognition: &nbsp;</p>
-                <input type={"file"} name={"upload_img"} onChange={(e)=>{
-                    if (e.target.files) {
-                        setFile(e.target.files[0]);
-                    }
-                }}/>
-                <button type={"submit"}>Search for image</button>
-            </form>
-            <form style={{display:"flex"}} onSubmit={async (e)=>{
-                e.preventDefault();
-                let data = new FormData();
-                data.append("assignment_file",file);
-                let dataTest = await fetch("http://13.71.90.52:8000/finger-recognize",{
-                    method:"POST",
-                    body: data
-                })
-                let json = await dataTest.json()
-                setRows(json.responses)
-            }}>
-                <p>Finger print Recognition: </p>
-                <input type={"file"} name={"upload_img"} onChange={(e)=>{
-                    if (e.target.files) {
-                        setFile(e.target.files[0]);
-                    }
-                }}/>
-                <button type={"submit"}>Search for fingerprint</button>
-            </form>
-        </div>
-        &nbsp;
-        &nbsp;
-        &nbsp;
-    {/*    Icons dropdown*/}
-        <div style={{display:"inline"}}>
-            {/*<b style={{color:"#8E8E8E"}}>params: </b>*/}
-            {/*<Button variant="contained" style={{fontSize:"10px"}} size={"small"}*/}
-            {/*        fullWidth={false} onClick={()=>setModalState1(true)}>*/}
-            {/*    <FontAwesomeIcon icon={faPlus} fontSize={17}/>*/}
-            {/*</Button>*/}
-            {/*{*/}
-            {/*    currentParamsState.map((cpvls)=>{*/}
-            {/*        return <Chip style={{*/}
-            {/*            margin:"0 5px"*/}
-            {/*        }} label={cpvls} variant="outlined" onDelete={async()=>{*/}
-            {/*            console.log("jasiodjoias")*/}
-            {/*            setCurrentParamState(state=>{*/}
-            {/*                let ret_val=state.filter((chips)=>chips!==cpvls);*/}
-            {/*                console.log(ret_val)*/}
-            {/*                return state*/}
-            {/*            })*/}
-            {/*        }}></Chip>*/}
-            {/*    })*/}
-            {/*}*/}
-            <Dialog open={modalState1} >
-                <div style={{
-                    padding:"15px",
-                    height:"60vh",
-                }}>
-                    <Box width={"450px"} style={{display:"flex",flexWrap:"wrap"}}>
-                        <Box display={"flex"} position={"absolute"} right={12}><FontAwesomeIcon icon={faCircleXmark} color={"red"} fontSize={20} onClick={()=>{
-                            setModalState1(false)
-                        }
-                        }/></Box>
-                        <div>
-                            {
-                                sample_data.map((val,index)=>{
-                                    return <Fab variant="extended" size={"small"} style={{
-                                        margin:"10px 6px",
-                                    }}>
-                                        <Checkbox size={"small"}
-                                                  defaultChecked={currentParamsState.includes(val)}
-                                                  onClick={(e)=>{
-                                                      console.log(e.target.checked)
-                                                      if (e.target.checked) {
-                                                          setCurrentParamState(state=>{
-                                                              state.push(val);
-                                                              return state
-                                                          });
-                                                      } else {
-                                                          setCurrentParamState(state=>{
-                                                              state.splice(state.indexOf(val),1);
-                                                              return state
-                                                          })
-                                                      }
-                                                  }}
-                                        />
-                                        <p>{val}</p>
-                                        &nbsp;
-                                        &nbsp;
-                                    </Fab>
-                                })
-                            }
-                        </div>
-                    </Box>
-                    {/*<span style={{maxWidth:"100%",marginTop:"10px"}}>Note: Increasing number of selections leads to higher time to load the results.</span>*/}
-                    <Box justifyContent={"center"} display={"flex"} alignItems={"center"} position={"absolute"} bottom={"10px"}>
-                        <b>Add new search paramters </b>&nbsp;&nbsp;
-                        <Button size={"small"} variant={"contained"} disabled={false} onClick={()=>{
-                            setModalState1(false);
-                        }
-                        }>Add</Button>
-                        {/*&nbsp;&nbsp;<p>({currentParamsState && currentParamsState.length })</p>*/}
-                    </Box>
-                </div>
-            </Dialog>
-        </div>
-        {/*This here is the filter section*/}
-        {/*<div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>*/}
-        {/*    <p style={{color:"#8E8E8E"}}>Filters:&nbsp;</p>*/}
-        {/*    {*/}
-        {/*        demi_data.map((vls,index)=>{*/}
-        {/*            return <MultiSelectDrop labelled_name={vls.name} options={vls.value}/>*/}
-        {/*        })*/}
-        {/*    }*/}
-        {/*</div>*/}
-    {/*    combined view parameters: */}
-    {/*    <div style={{display:"flex", alignItems:"center", marginTop:"9.4px", flexWrap:"wrap"}}>*/}
-    {/*        <p style={{color:"#8E8E8E"}}>combined view parameters:&nbsp;</p>*/}
-    {/*        <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{*/}
-    {/*            marginRight:"13px"*/}
-    {/*        }}>*/}
-    {/*            valid_id | valid_id_details*/}
-    {/*        </Button>*/}
-    {/*        <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{*/}
-    {/*            marginRight:"13px"*/}
-    {/*        }}>*/}
-    {/*            valid_id | valid_id_details*/}
-    {/*        </Button>*/}
-    {/*        <p>+ add new parameters</p>*/}
-    {/*    </div>*/}
-    {/*    <h2 style={{*/}
-    {/*        margin:"10px"*/}
-    {/*    }}>Finger Print Data Analysis</h2>*/}
-    {/*    <div style={{*/}
-    {/*        display:"flex",*/}
-    {/*        alignItems:"center",*/}
-    {/*        justifyContent:"space-between",*/}
-    {/*        width:"1300px"*/}
-    {/*    }}>*/}
-    {/*        <div>*/}
-    {/*            <img src={FingerPrintData.src} style={{*/}
-    {/*                width:"180px"*/}
-    {/*            }}/>*/}
-    {/*        </div>*/}
-    {/*        <FontAwesomeIcon icon={faAngleDoubleRight}/>*/}
-    {/*        <div style={{*/}
-    {/*            display:"flex",*/}
-    {/*            flexDirection:"column",*/}
-    {/*            alignItems:"center",*/}
-    {/*        }}>*/}
-    {/*            <p*/}
-    {/*                style={{*/}
-    {/*                    fontSize:"45px",*/}
-    {/*                    fontWeight:"900",*/}
-    {/*                    color:"green"*/}
-    {/*                }}*/}
-    {/*            >90%</p>*/}
-    {/*            <p*/}
-    {/*            style={{*/}
-    {/*                fontSize:"35px",*/}
-    {/*                color:"green"*/}
-    {/*            }}*/}
-    {/*            >Match</p>*/}
-    {/*            <div style={{*/}
-    {/*                display:"flex",*/}
-    {/*                gap:"10px",*/}
-    {/*                alignItems:"center",*/}
-    {/*                marginTop:"10px"*/}
-    {/*            }}>*/}
-    {/*                <p style={{color:"#8E8E8E"}}>Download:</p>*/}
-    {/*                <div*/}
-    {/*                    style={{*/}
-    {/*                        width:"30px",*/}
-    {/*                        height:"30px",*/}
-    {/*                        background:"lightgrey",*/}
-    {/*                        borderRadius:"7px",*/}
-    {/*                        justifyContent:"center",*/}
-    {/*                        display:"flex",*/}
-    {/*                        alignItems:"center",*/}
-    {/*                        color:"#ffffff"*/}
-    {/*                    }}*/}
-    {/*                ><FontAwesomeIcon icon={faDownload}/></div>*/}
-    {/*            </div>*/}
-    {/*        </div>*/}
-    {/*        <FontAwesomeIcon icon={faAngleDoubleRight}/>*/}
-    {/*        <div>*/}
-    {/*            <div style={{ height: "350px",width: "600px" }}>*/}
-    {/*                <DataGrid*/}
-    {/*                    rows={rows2}*/}
-    {/*                    columns={columns}*/}
-    {/*                    pageSize={15}*/}
-    {/*                    rowsPerPageOptions={[10]}*/}
-    {/*                    page={0}*/}
-    {/*                    style={{*/}
-    {/*                        width:"400px"}*/}
-    {/*                    }*/}
-    {/*                />*/}
-    {/*            </div>*/}
-    {/*        </div>*/}
-    {/*    </div>*/}
-        <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
-            <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
-                <p style={{color:"#8E8E8E"}}>select page:&nbsp;</p>
-                <Pagination count={Math.round(rows.length / 15)} variant="outlined" shape="rounded" />
+        <SideBar/>
+        <div>
+            <div>
+
             </div>
-            {/*<div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>*/}
-            {/*    <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>*/}
-            {/*    <RowCountComp/>*/}
-            {/*</div>*/}
             <div style={{
                 display:"flex",
-                alignItems:"center",
-                gap:"4px"
+                gap:"30px",
+                flexDirection:"column",
+                alignItems:"center"
             }}>
-                <p style={{color:"#8E8E8E"}}>PDF:</p>
-                <div
+                <form style={{display:"inline",marginTop:"10px"}}
+                      onSubmit={(e)=>{
+                          e.preventDefault();
+                          // setSearchTerm(e.currentTarget.searchbar.value)
+                          searchGo(e.currentTarget.searchbar.value);
+                      }}
+                >
+                    <b>Search:</b>&nbsp;&nbsp;
+                    <Input
+                        id="standard-adornment-amount"
+                        placeholder={"Names, id, etc"}
+                        name={"searchbar"}
+                        startAdornment={<FontAwesomeIcon icon={faMagnifyingGlass} style={{marginRight:"10px"}}/>}
+                    />
+                    <button
+                        type={"submit"}
+                    >Search</button>
+                </form>
+                <form style={{display:"flex"}} onSubmit={async (e)=>{
+                    e.preventDefault();
+                    let data = new FormData();
+                    data.append("assignment_file",file);
+                    let dataTest = await fetch("http://13.71.90.52:8000/image-recognize",{
+                        method:"POST",
+                        body: data
+                    })
+                    let json = await dataTest.json();
+                    setRows(json.responses)
+                }}>
+                    <p>Image Recognition: &nbsp;</p>
+                    <input type={"file"} name={"upload_img"} onChange={(e)=>{
+                        if (e.target.files) {
+                            setFile(e.target.files[0]);
+                        }
+                    }}/>
+                    <button type={"submit"}>Search for image</button>
+                </form>
+                <form style={{display:"flex"}} onSubmit={async (e)=>{
+                    e.preventDefault();
+                    let data = new FormData();
+                    data.append("assignment_file",file);
+                    let dataTest = await fetch("http://13.71.90.52:8000/finger-recognize",{
+                        method:"POST",
+                        body: data
+                    })
+                    let json = await dataTest.json()
+                    setRows(json.responses)
+                }}>
+                    <p>Finger print Recognition: </p>
+                    <input type={"file"} name={"upload_img"} onChange={(e)=>{
+                        if (e.target.files) {
+                            setFile(e.target.files[0]);
+                        }
+                    }}/>
+                    <button type={"submit"}>Search for fingerprint</button>
+                </form>
+            </div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            {/*    Icons dropdown*/}
+            <div style={{display:"inline"}}>
+                {/*<b style={{color:"#8E8E8E"}}>params: </b>*/}
+                {/*<Button variant="contained" style={{fontSize:"10px"}} size={"small"}*/}
+                {/*        fullWidth={false} onClick={()=>setModalState1(true)}>*/}
+                {/*    <FontAwesomeIcon icon={faPlus} fontSize={17}/>*/}
+                {/*</Button>*/}
+                {/*{*/}
+                {/*    currentParamsState.map((cpvls)=>{*/}
+                {/*        return <Chip style={{*/}
+                {/*            margin:"0 5px"*/}
+                {/*        }} label={cpvls} variant="outlined" onDelete={async()=>{*/}
+                {/*            console.log("jasiodjoias")*/}
+                {/*            setCurrentParamState(state=>{*/}
+                {/*                let ret_val=state.filter((chips)=>chips!==cpvls);*/}
+                {/*                console.log(ret_val)*/}
+                {/*                return state*/}
+                {/*            })*/}
+                {/*        }}></Chip>*/}
+                {/*    })*/}
+                {/*}*/}
+                <Dialog open={modalState1} >
+                    <div style={{
+                        padding:"15px",
+                        height:"60vh",
+                    }}>
+                        <Box width={"450px"} style={{display:"flex",flexWrap:"wrap"}}>
+                            <Box display={"flex"} position={"absolute"} right={12}><FontAwesomeIcon icon={faCircleXmark} color={"red"} fontSize={20} onClick={()=>{
+                                setModalState1(false)
+                            }
+                            }/></Box>
+                            <div>
+                                {
+                                    sample_data.map((val,index)=>{
+                                        return <Fab variant="extended" size={"small"} style={{
+                                            margin:"10px 6px",
+                                        }}>
+                                            <Checkbox size={"small"}
+                                                      defaultChecked={currentParamsState.includes(val)}
+                                                      onClick={(e)=>{
+                                                          console.log(e.target.checked)
+                                                          if (e.target.checked) {
+                                                              setCurrentParamState(state=>{
+                                                                  state.push(val);
+                                                                  return state
+                                                              });
+                                                          } else {
+                                                              setCurrentParamState(state=>{
+                                                                  state.splice(state.indexOf(val),1);
+                                                                  return state
+                                                              })
+                                                          }
+                                                      }}
+                                            />
+                                            <p>{val}</p>
+                                            &nbsp;
+                                            &nbsp;
+                                        </Fab>
+                                    })
+                                }
+                            </div>
+                        </Box>
+                        {/*<span style={{maxWidth:"100%",marginTop:"10px"}}>Note: Increasing number of selections leads to higher time to load the results.</span>*/}
+                        <Box justifyContent={"center"} display={"flex"} alignItems={"center"} position={"absolute"} bottom={"10px"}>
+                            <b>Add new search paramters </b>&nbsp;&nbsp;
+                            <Button size={"small"} variant={"contained"} disabled={false} onClick={()=>{
+                                setModalState1(false);
+                            }
+                            }>Add</Button>
+                            {/*&nbsp;&nbsp;<p>({currentParamsState && currentParamsState.length })</p>*/}
+                        </Box>
+                    </div>
+                </Dialog>
+            </div>
+            {/*This here is the filter section*/}
+            {/*<div style={{display:"flex", alignItems:"center", marginTop:"13.4px", flexWrap:"wrap"}}>*/}
+            {/*    <p style={{color:"#8E8E8E"}}>Filters:&nbsp;</p>*/}
+            {/*    {*/}
+            {/*        demi_data.map((vls,index)=>{*/}
+            {/*            return <MultiSelectDrop labelled_name={vls.name} options={vls.value}/>*/}
+            {/*        })*/}
+            {/*    }*/}
+            {/*</div>*/}
+            {/*    combined view parameters: */}
+            {/*    <div style={{display:"flex", alignItems:"center", marginTop:"9.4px", flexWrap:"wrap"}}>*/}
+            {/*        <p style={{color:"#8E8E8E"}}>combined view parameters:&nbsp;</p>*/}
+            {/*        <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{*/}
+            {/*            marginRight:"13px"*/}
+            {/*        }}>*/}
+            {/*            valid_id | valid_id_details*/}
+            {/*        </Button>*/}
+            {/*        <Button variant="outlined" size={"small"} endIcon={<FontAwesomeIcon icon={faXmark} style={{height:"10px"}}/>} style={{*/}
+            {/*            marginRight:"13px"*/}
+            {/*        }}>*/}
+            {/*            valid_id | valid_id_details*/}
+            {/*        </Button>*/}
+            {/*        <p>+ add new parameters</p>*/}
+            {/*    </div>*/}
+            {/*    <h2 style={{*/}
+            {/*        margin:"10px"*/}
+            {/*    }}>Finger Print Data Analysis</h2>*/}
+            {/*    <div style={{*/}
+            {/*        display:"flex",*/}
+            {/*        alignItems:"center",*/}
+            {/*        justifyContent:"space-between",*/}
+            {/*        width:"1300px"*/}
+            {/*    }}>*/}
+            {/*        <div>*/}
+            {/*            <img src={FingerPrintData.src} style={{*/}
+            {/*                width:"180px"*/}
+            {/*            }}/>*/}
+            {/*        </div>*/}
+            {/*        <FontAwesomeIcon icon={faAngleDoubleRight}/>*/}
+            {/*        <div style={{*/}
+            {/*            display:"flex",*/}
+            {/*            flexDirection:"column",*/}
+            {/*            alignItems:"center",*/}
+            {/*        }}>*/}
+            {/*            <p*/}
+            {/*                style={{*/}
+            {/*                    fontSize:"45px",*/}
+            {/*                    fontWeight:"900",*/}
+            {/*                    color:"green"*/}
+            {/*                }}*/}
+            {/*            >90%</p>*/}
+            {/*            <p*/}
+            {/*            style={{*/}
+            {/*                fontSize:"35px",*/}
+            {/*                color:"green"*/}
+            {/*            }}*/}
+            {/*            >Match</p>*/}
+            {/*            <div style={{*/}
+            {/*                display:"flex",*/}
+            {/*                gap:"10px",*/}
+            {/*                alignItems:"center",*/}
+            {/*                marginTop:"10px"*/}
+            {/*            }}>*/}
+            {/*                <p style={{color:"#8E8E8E"}}>Download:</p>*/}
+            {/*                <div*/}
+            {/*                    style={{*/}
+            {/*                        width:"30px",*/}
+            {/*                        height:"30px",*/}
+            {/*                        background:"lightgrey",*/}
+            {/*                        borderRadius:"7px",*/}
+            {/*                        justifyContent:"center",*/}
+            {/*                        display:"flex",*/}
+            {/*                        alignItems:"center",*/}
+            {/*                        color:"#ffffff"*/}
+            {/*                    }}*/}
+            {/*                ><FontAwesomeIcon icon={faDownload}/></div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*        <FontAwesomeIcon icon={faAngleDoubleRight}/>*/}
+            {/*        <div>*/}
+            {/*            <div style={{ height: "350px",width: "600px" }}>*/}
+            {/*                <DataGrid*/}
+            {/*                    rows={rows2}*/}
+            {/*                    columns={columns}*/}
+            {/*                    pageSize={15}*/}
+            {/*                    rowsPerPageOptions={[10]}*/}
+            {/*                    page={0}*/}
+            {/*                    style={{*/}
+            {/*                        width:"400px"}*/}
+            {/*                    }*/}
+            {/*                />*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            <div style={{display:"flex", alignItems:"center",gap:"37px",marginTop:"17px"}}>
+                <div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>
+                    <p style={{color:"#8E8E8E"}}>select page:&nbsp;</p>
+                    <Pagination count={Math.round(rows.length / 15)} variant="outlined" shape="rounded" />
+                </div>
+                {/*<div style={{display:"flex", alignItems:"center", flexWrap:"wrap"}}>*/}
+                {/*    <p style={{color:"#8E8E8E"}}>rows per page:&nbsp;</p>*/}
+                {/*    <RowCountComp/>*/}
+                {/*</div>*/}
+                <div style={{
+                    display:"flex",
+                    alignItems:"center",
+                    gap:"4px"
+                }}>
+                    <p style={{color:"#8E8E8E"}}>PDF:</p>
+                    <div
+                        style={{
+                            width:"30px",
+                            height:"30px",
+                            background:"lightgrey",
+                            borderRadius:"7px",
+                            justifyContent:"center",
+                            display:"flex",
+                            alignItems:"center",
+                            color:"#ffffff"
+                        }}
+                    ><FontAwesomeIcon icon={faDownload}/></div>
+                </div>
+                <div style={{display:"flex", alignItems:"center",  flexWrap:"wrap"}}>
+                    {/*<p style={{color:"#8E8E8E"}}>merge direction:&nbsp;&nbsp;</p>*/}
+                    {/*<ButtonGroup size={"small"} variant="outlined" color={"secondary"} aria-label="outlined button group">*/}
+                    {/*    <Button>Left</Button>*/}
+                    {/*    <Button>Full</Button>*/}
+                    {/*    <Button>right</Button>*/}
+                    {/*</ButtonGroup>*/}
+                </div>
+                {/*<p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>*/}
+
+            </div>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            {/*added MUI library*/}
+            <div style={{ height: "70vh", width: '90vw' }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    pageSize={15}
+                    rowsPerPageOptions={[10]}
+                    page={0}
+                    // checkboxSelection
                     style={{
-                        width:"30px",
-                        height:"30px",
-                        background:"lightgrey",
-                        borderRadius:"7px",
-                        justifyContent:"center",
-                        display:"flex",
-                        alignItems:"center",
-                        color:"#ffffff"
-                    }}
-                ><FontAwesomeIcon icon={faDownload}/></div>
+                        width:"100%"}
+                    }
+                />
             </div>
-            <div style={{display:"flex", alignItems:"center",  flexWrap:"wrap"}}>
-                {/*<p style={{color:"#8E8E8E"}}>merge direction:&nbsp;&nbsp;</p>*/}
-                {/*<ButtonGroup size={"small"} variant="outlined" color={"secondary"} aria-label="outlined button group">*/}
-                {/*    <Button>Left</Button>*/}
-                {/*    <Button>Full</Button>*/}
-                {/*    <Button>right</Button>*/}
-                {/*</ButtonGroup>*/}
-            </div>
-            {/*<p style={{color:"#8E8E8E"}}>excise (database 1)&nbsp;&nbsp;<FontAwesomeIcon icon={faCodeMerge}/>&nbsp;&nbsp;home guard (database 2)</p>*/}
 
         </div>
-        &nbsp;
-        &nbsp;
-        &nbsp;
-        &nbsp;
-        {/*added MUI library*/}
-        <div style={{ height: "70vh", width: '90vw' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={15}
-                rowsPerPageOptions={[10]}
-                page={0}
-                // checkboxSelection
-                style={{
-            width:"100%"}
-                }
-            />
-        </div>
-
     </div>
 }
 export const CustomFilter=()=>{
